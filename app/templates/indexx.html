@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood-Based Music Recommendation</title>
+    <style>
+        /* Your existing CSS styles here */
+        /* ... */
+        body
+        
+        {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: black;
+            
+        }
+
+        .prompt {
+            background-color:greenyellow;
+            padding: 20px;
+            border-radius: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            
+            
+        }
+        .audio{
+            background-color: black;
+            
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            
+        }
+
+        button:hover {
+            background-color: #f04e02;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="prompt">
+
+            <h1>Mood-Based Music Recommendation System</h1>
+            <!-- Audio prompt -->
+            <audio controls autoplay id="audioPrompt">
+                <source src="how_are_you_feeling_today.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <canvas id="frequencyGraph" width="400" height="200"></canvas>
+            <button id="startBtn" onclick="startRecording()">Start Recording</button>
+            <button id="stopBtn" onclick="stopRecording()" disabled>Stop Recording</button>
+        </div>
+    </div>
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = function (event) {
+                        recordedChunks.push(event.data);
+                    };
+                    mediaRecorder.onstop = function () {
+                        const audioBlob = new Blob(recordedChunks, { type: 'audio/mp3' });
+
+                        // Create a download link to save the audio recording
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = URL.createObjectURL(audioBlob);
+                        downloadLink.download = 'recorded_audio.mp3';
+                        downloadLink.click();
+
+                        // Reset the recordedChunks for the next recording
+                        recordedChunks = [];
+                    };
+                    mediaRecorder.start();
+                    document.getElementById("startBtn").disabled = true;
+                    document.getElementById("stopBtn").disabled = false;
+
+                    // Pause the audio prompt while recording
+                    const audioPrompt = document.getElementById("audioPrompt");
+                    audioPrompt.pause();
+
+                    // Initialize the frequency graph
+                    initializeFrequencyGraph(stream);
+                })
+                .catch(function (err) {
+                    console.log("Error accessing microphone:", err);
+                });
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            document.getElementById("startBtn").disabled = false;
+            document.getElementById("stopBtn").disabled = true;
+
+            // Resume the audio prompt after recording
+            const audioPrompt = document.getElementById("audioPrompt");
+            audioPrompt.play();
+
+            // Clear the frequency graph when recording stops
+            const canvas = document.getElementById("frequencyGraph");
+            const canvasCtx = canvas.getContext("2d");
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function initializeFrequencyGraph(stream) {
+            // Create an AudioContext and connect the microphone stream to it
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const mediaStreamSource = audioContext.createMediaStreamSource(stream);
+
+            // Create an AnalyserNode to analyze the frequency data
+            const analyserNode = audioContext.createAnalyser();
+            analyserNode.fftSize = 256;
+            const bufferLength = analyserNode.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            // Connect the AnalyserNode to the microphone stream
+            mediaStreamSource.connect(analyserNode);
+
+            // Create the frequency graph
+            const canvas = document.getElementById("frequencyGraph");
+            const canvasCtx = canvas.getContext("2d");
+
+            function updateFrequencyGraph() {
+                analyserNode.getByteFrequencyData(dataArray);
+
+                canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+                canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 2;
+                let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] / 2;
+                    canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
+                    canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+
+                requestAnimationFrame(updateFrequencyGraph);
+            }
+
+            // Start updating the frequency graph
+            updateFrequencyGraph();
+        }
+    </script>
+</body>
+</html>
