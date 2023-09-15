@@ -58,18 +58,28 @@
 <body>
     <div class="container">
         <div class="prompt">
-
             <h1>Mood-Based Music Recommendation System</h1>
+
             <!-- Audio prompt -->
             <audio controls autoplay id="audioPrompt">
                 <source src="how_are_you_feeling_today.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+
+            <!-- Canvas for frequency graph -->
             <canvas id="frequencyGraph" width="400" height="200"></canvas>
+
+            <!-- Start Recording Button -->
             <button id="startBtn" onclick="startRecording()">Start Recording</button>
+
+            <!-- Stop Recording Button -->
             <button id="stopBtn" onclick="stopRecording()" disabled>Stop Recording</button>
+
+            <!-- Display Emotion Prediction -->
+            <p id="emotion">Predicted Emotion: </p>
         </div>
     </div>
+
     <script>
         let mediaRecorder;
         let recordedChunks = [];
@@ -122,7 +132,41 @@
             const canvas = document.getElementById("frequencyGraph");
             const canvasCtx = canvas.getContext("2d");
             canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Create a Blob from recordedChunks
+            const audioBlob = new Blob(recordedChunks, { type: 'audio/mp3' });
+
+            // Create a FormData object to send the audio data to the server
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'recorded_audio.mp3');
+
+            // Make an HTTP POST request to your Flask server to save the audio in the "temp" directory
+            fetch('/save_audio', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the response from your Flask server as needed
+                console.log('Response from server:', data);
+
+                // Example: Display the predicted emotion in your web page
+                const emotionElement = document.getElementById("emotion");
+                emotionElement.textContent = `Predicted Emotion: ${data.emotion}`;
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
+            // Reset the recordedChunks for the next recording
+            recordedChunks = [];
         }
+
 
         function initializeFrequencyGraph(stream) {
             // Create an AudioContext and connect the microphone stream to it
