@@ -1,0 +1,135 @@
+body {
+  background: linear-gradient(to right, #0f4da6, #0f4da6, #1e272e, #1e272e);
+  margin: 0; /* Remove default body margin */
+  padding: 0; /* Remove default body padding */
+}
+
+.container {
+  position: relative; 
+}
+
+.row { 
+  background: linear-gradient(to right, #0f4da6, #0f4da6, #1e272e, #1e272e);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex; /* Use Flexbox */
+  justify-content: space-around;
+}
+
+.column {
+  width: 45%; /* Adjust as needed */
+  padding: 15px;
+  color: #f0f0f5;
+}
+
+#recording-instructions {
+  text-align: left;
+  margin-top: 10px; 
+  font-style: italic;
+}
+
+.row {
+  display: flex; 
+  flex-direction: column; /* Stack items vertically */
+  align-items: left;
+  margin-bottom: 3%;
+  background-color: #060073;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column1 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .column2 {
+    width: 100%;
+  }
+}
+
+#imgInp {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+label {
+  cursor: pointer;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  font-size: 100%;
+  color: #000000;
+  border-radius: 25px;
+  background-color: #228B22;
+}
+
+#blah {
+  max-width: 60%;
+  max-height: 60%;
+}
+
+#image_div1 {
+  max-width: 70%;
+  max-height: 70%;
+}
+
+#stop, #start {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px; /* Add margin to create gap */
+  transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+#stop {
+  margin-right: 5px; /* Adjust margin to create gap */
+}
+
+#stop:hover, #start:hover {
+  background-color: #333; /* Change background color on hover */
+}
+
+.animated-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 2s forwards;
+  transition: color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+  white-space: nowrap;
+    position: absolute;
+  left: 200px; /* Adjust the value as needed */
+  top: 20px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-title:hover {
+  color: black;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+}
+

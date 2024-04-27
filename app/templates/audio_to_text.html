@@ -1,0 +1,46 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/header_file.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/audio_to_text.css">
+    <script src="/static/recorder.js"></script>
+    <script src="/static/audiodisplay.js"></script>
+    <script src="/static/main.js"></script>
+    <script src="/static/recorderWorker.js"></script>
+
+    </head>
+        <body style="background-color:rgb(127, 195, 255);">
+            <script src="/static/recorder.js"></script>
+            <script src="/static/audiodisplay.js"></script>
+            <script src="/static/main.js"></script>
+            <script src="/static/recorderWorker.js"></script>
+            {% include "header.html" %}
+        
+            <main>
+                <div class="container">
+                <p class="prompt animated-title">Mood Based Music Recommendation System</p>
+
+
+            
+                <div class="row">
+                    <div class="column">
+                    <h3>Record Audio</h3>
+                    <button id="start" class="btn btn-success" onclick="startRecording()" disabled>Start Recording</button>
+                    <button id="stop" class="btn btn-danger" onclick="stopRecording()" disabled>Stop Recording</button>
+                    <p id="recording-instructions">Press Start to start recording audio and press Stop to end recording audio</p> 
+                    </div>
+                </div>
+                </div>
+            </main>
+            
+            
+        
+        </body>
+        
+    </html>

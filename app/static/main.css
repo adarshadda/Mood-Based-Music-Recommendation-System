@@ -1,0 +1,109 @@
+/* Add a gradient background color to the body */
+body {
+  background: linear-gradient(to right, #0f4da6, #0f4da6, #1e272e, #1e272e);
+}
+
+/* Center the content */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Style the header */
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1.title-font {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: white; /* Change the color to your desired color */
+  font-size: 2.5rem; /* Increase the font size */
+  animation: fadeIn 2s forwards; /* Apply animation */
+}
+
+p {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: black; /* Change the color to your desired color */
+  font-size: 1.5rem; /* Increase the font size */
+  animation: fadeIn 2s forwards; /* Apply animation */
+  transition: color 0.5s ease-in-out; /* Apply transition */
+
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #ff00ff; } /* Change the color to your desired color */
+}
+
+
+p.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  margin-bottom: 2rem;
+  text-align: center;
+  animation: fadeIn 2s forwards;
+  transition: color 0.5s ease-in-out;
+}
+
+/* Animation for fading in */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Style the button */
+.button-primary {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 2rem;
+  animation: pulse 1s ease-in-out infinite;
+
+}
+
+.button-primary:hover {
+  background-color: #f0f0f0;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.5);
+  }
+}

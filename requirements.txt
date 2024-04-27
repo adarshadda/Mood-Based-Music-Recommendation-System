@@ -1,3 +1,7 @@
 transformers
+accelerate
 torch
 whisper
+Flask
+Flask-Cors
+faster-whisper

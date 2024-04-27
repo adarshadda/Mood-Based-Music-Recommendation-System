@@ -1,11 +1,18 @@
-from modules.audio import Audio
+import os
+import time
+
 from modules.emotion import Emotion
 from modules.transcription import Transcription
 
+transcription_model = "tiny.en"
+emotion_model = "joeddav/distilbert-base-uncased-go-emotions-student"
+
+transcription_obj = Transcription(model_name=transcription_model)
+emotion_obj = Emotion(model_name=emotion_model)
 
 class Module:
-    @classmethod
-    def predict(cls, audio_path: str) -> str:
+
+    def predict(self, audio_path: str) -> str:
         """Loads audio, gets transcription and detects emotion
 
         Args:
@@ -14,7 +21,14 @@ class Module:
         Returns:
             str: emotion
         """
-        audio_data = Audio.load_audio(audio_path=audio_path)
-        text = Transcription.transcribe(audio_data=audio_data)
-        return Emotion.detect_emotion(text=text)
+        print("Getting transcription...")
+        start_time = time.time()
+        if text := transcription_obj.transcribe(audio_path=audio_path):
+            print("Text: ", text, time.time() - start_time)
+            
+            start_time = time.time()
+            emotion = emotion_obj.detect_emotion(text=text)
+            print("Emotion: ", emotion, time.time() - start_time)
+            return text, emotion
+        return None
         
