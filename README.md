@@ -4,11 +4,11 @@
 
 ## Overview
 
-The project opens with an engaging audio prompt asking users, *"How are you feeling today?"* Utilizing the Whisper library, the user's response, is transcribed into text. An advanced AI model trained for emotion classification analyzes this text to precisely identify the user's emotional state.
+The project opens with an engaging audio input asking users to record their mood today, Utilizing the Whisper library, the user's response, is transcribed into text. An advanced AI model trained for emotion classification analyzes this text to precisely identify the user's emotional state.
 
 ## Features
 
-- **Audio Prompt:** Engage with an audio message that initiates the interaction.
+- **Audio Prompt:** Engage with an audio recorder that initiates the interaction.
 - **Speech-to-Text:** Whisper library converts spoken responses into text.
 - **Emotion Classification:** AI model accurately classifies user emotions.
 - **Music Recommendations:** Based on emotions, receive tailored song recommendations.
