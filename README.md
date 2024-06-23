@@ -14,3 +14,22 @@ The project opens with an engaging audio prompt asking users, *"How are you feel
 - **Music Recommendations:** Based on emotions, receive tailored song recommendations.
 - **User-Friendly Interface:** Python frameworks create an intuitive web-based UI.
 
+
+## To run this project on your local machine, follow these steps:
+
+**Clone the Repository:**
+git clone https://github.com/adarshadda/Mood-Based-Music-Recommendation-System.git
+cd Mood-Based-Music-Recommendation-System
+
+**Install Dependencies**:
+
+pip install -r requirements.txt
+
+
+**Run the Application:**
+
+python app.py
+
+
+
+
