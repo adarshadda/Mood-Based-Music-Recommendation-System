@@ -8,7 +8,7 @@ The project opens with an engaging audio input asking users to record their mood
 
 ## Features
 
-- **Audio Prompt:** Engage with an audio recorder that initiates the interaction.
+- **Audio Recorder:** Engage with an audio recorder that initiates the interaction.
 - **Speech-to-Text:** Whisper library converts spoken responses into text.
 - **Emotion Classification:** AI model accurately classifies user emotions.
 - **Music Recommendations:** Based on emotions, receive tailored song recommendations.
